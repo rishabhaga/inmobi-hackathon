@@ -10,11 +10,22 @@ import javax.validation.constraints.Min;
  */
 public class ExternalServceConfig {
     @NotEmpty
+    private String protocol;
+
+    @NotEmpty
     private String host;
 
     @Min(1)
     @Max(65535)
     private int port = 5672;
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
     public String getHost() {
         return host;
@@ -30,5 +41,9 @@ public class ExternalServceConfig {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getUrl() {
+        return protocol+"://" + host + ":" + port;
     }
 }

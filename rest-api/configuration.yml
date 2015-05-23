@@ -14,8 +14,8 @@ database:
   url: jdbc:mysql://localhost:3306/inmobi
 
 httpClient:
-  timeout: 500ms
-  connectionTimeout: 500ms
+  timeout: 5000ms
+  connectionTimeout: 5000ms
   timeToLive: 1h
   cookiesEnabled: false
   maxConnections: 1024
@@ -25,5 +25,6 @@ httpClient:
   userAgent: Avenger-Rest-Api
 
 externalService:
-  host: localhost
-  port: 8080
+  protocol: http
+  host: 10.14.120.218
+  port: 4000
