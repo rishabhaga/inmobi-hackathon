@@ -1,6 +1,7 @@
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import resources.TestResource;
 
 /**
  * Created by rishabh.agarwal on 23/05/15.
@@ -22,6 +23,10 @@ public class MainApplication extends Application<MainConfiguration> {
 
     @Override
     public void run(MainConfiguration configuration, Environment environment) throws Exception {
+        addResources( configuration, environment );
+    }
 
+    private void addResources(MainConfiguration configuration, Environment environment) {
+        environment.jersey().register( new TestResource() );
     }
 }
