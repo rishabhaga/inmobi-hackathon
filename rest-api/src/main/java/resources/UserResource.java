@@ -24,7 +24,22 @@ public class UserResource {
     @Path("/register")
     public Response register(@Valid User user) {
         try {
-            int status = userDAO.insert(user);
+            User oldUser = userDAO.findById(user.getId());
+            int status = 0;
+            if( oldUser == null ) {
+                System.out.println("User dosent exist. Creating user !!!");
+                status = userDAO.insert(user);
+            } else {
+                String newUserUUID = user.getUuid();
+                String oldUserUUID = oldUser.getUuid();
+                if( oldUserUUID.compareTo(newUserUUID) == 0 ) {
+                    System.out.println("User token is same");
+                    status = 1;
+                } else {
+                    System.out.println("User token is different");
+                    status = 0;
+                }
+            }
             return Response.ok(status).build();
         } catch (Exception e) {
             System.out.println(e.getMessage());
