@@ -10,8 +10,8 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
  */
 @RegisterMapper(UserMapper.class)
 public interface UserDAO {
-//    @SqlQuery("select * from user where id = :id")
-//    User findById(@Bind("id") String id);
+    @SqlQuery("select * from user where id = :id")
+    User findById(@Bind("id") String id);
 
     @SqlUpdate("insert into user values ( :id, :uuid, :deviceId)")
     int insert(@BindBean User user);

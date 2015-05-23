@@ -4,9 +4,7 @@ import core.User;
 import dao.UserDAO;
 
 import javax.validation.Valid;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,5 +30,11 @@ public class UserResource {
             System.out.println(e.getMessage());
             return Response.ok(0).build();
         }
+    }
+
+    @GET
+    @Path("/info/{id}")
+    public User getInfo(@PathParam("id") String id) {
+        return userDAO.findById(id);
     }
 }

@@ -14,8 +14,8 @@ public class UserMapper implements ResultSetMapper<User> {
     @Override
     public User map(int i, ResultSet resultSet, StatementContext statementContext) throws SQLException {
         return new User()
-                .setId(resultSet.getString(0))
-                .setUuid(resultSet.getString(1))
-                .setDeviceId(resultSet.getString(2));
+                .setId(resultSet.getString("id"))
+                .setUuid(resultSet.getString("uuid"))
+                .setDeviceId(resultSet.getString("deviceId"));
     }
 }
