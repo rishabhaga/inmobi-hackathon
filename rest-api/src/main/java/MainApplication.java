@@ -1,9 +1,11 @@
+import dao.ContactsDAO;
 import dao.UserDAO;
 import io.dropwizard.Application;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
+import resources.ContactsResource;
 import resources.TestResource;
 import resources.UserResource;
 
@@ -28,15 +30,17 @@ public class MainApplication extends Application<MainConfiguration> {
     @Override
     public void run(MainConfiguration configuration, Environment environment) throws Exception {
         environment.jersey().register( new TestResource() );
-        addResources( configuration, environment );
+        addDaoResources(configuration, environment);
     }
 
-    private void addResources(MainConfiguration configuration, Environment environment) {
+    private void addDaoResources(MainConfiguration configuration, Environment environment) {
         final DBIFactory dbiFactory = new DBIFactory();
         final DBI dbi = dbiFactory.build(environment, configuration.getDataSourceFactory(), "jdbc");
 
         final UserDAO userDAO = dbi.onDemand(UserDAO.class);
         environment.jersey().register(new UserResource(userDAO));
 
+        final ContactsDAO contactsDAO = dbi.onDemand(ContactsDAO.class);
+        environment.jersey().register(new ContactsResource(userDAO, contactsDAO));
     }
 }

@@ -22,6 +22,7 @@ public class UserResource {
 
     @POST
     @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response register(@Valid User user) {
         try {
             User oldUser = userDAO.findById(user.getId());
@@ -30,6 +31,7 @@ public class UserResource {
                 System.out.println("User dosent exist. Creating user !!!");
                 status = userDAO.insert(user);
             } else {
+                System.out.println("User already exist");
                 String newUserUUID = user.getUuid();
                 String oldUserUUID = oldUser.getUuid();
                 if( oldUserUUID.compareTo(newUserUUID) == 0 ) {
@@ -42,7 +44,7 @@ public class UserResource {
             }
             return Response.ok(status).build();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception::UserResource::register " + e.getMessage());
             return Response.ok(0).build();
         }
     }
