@@ -30,13 +30,12 @@
         //      1.2 setting up in app.
         this._app.use(morgan('combined', {stream: accessLogStream}));
 
-        //  2.  body parser.
-        this._app.use(bodyParser.json({type: 'application/json'}));
-
-        //  3.  Express domain middleware
+        //  2.  Express domain middleware
         //      If any error is caught, then it invokes the normal/common express error handler.
         this._app.use(domainMiddleware);
 
+        //  3.  body parser.
+        this._app.use(bodyParser.json({type: 'application/json'}));
     };
 
     app.prototype._initRoutes = function () {
@@ -56,7 +55,7 @@
         this._app.use(function (err, req, res, next) {
 
             log.error(err, {
-                stacktrace: appUtil.codeHelper.parsetrace(err)
+                stacktrace: err.stack
             });
 
             var jsonView = new (appUtil.jsonView)();
