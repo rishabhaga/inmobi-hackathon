@@ -6,3 +6,25 @@ server:
   - type: http
     port: 9001
   rootPath: /rest-api/*
+
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: root
+  password:
+  url: jdbc:mysql://localhost:3306/inmobi
+
+httpClient:
+  timeout: 5000ms
+  connectionTimeout: 5000ms
+  timeToLive: 1h
+  cookiesEnabled: false
+  maxConnections: 1024
+  maxConnectionsPerRoute: 1024
+  keepAlive: 0ms
+  retries: 0
+  userAgent: Avenger-Rest-Api
+
+externalService:
+  protocol: http
+  host: 10.14.120.218
+  port: 4000
